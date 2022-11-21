@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { UsersController } from '../users.controller';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -8,18 +7,25 @@ export type UserDocument = HydratedDocument<User>;
 export class User {
     @Prop({ required: true, unique: true })
     email: String;
+
     @Prop({ required: true })
     password: String;
+
     @Prop({ required: true })
     first_name: String;
+
     @Prop({ required: true })
     last_name: String;
+    
     @Prop()
     age: Number;
+
     @Prop()
     avatar: String;
+
     @Prop()
     cart_number: String;
+
     @Prop()
     delivery_address: String;
 }
