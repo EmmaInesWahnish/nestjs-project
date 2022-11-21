@@ -10,16 +10,16 @@ export class UsersService {
 
   constructor(@InjectModel(User.name) private usersModel: Model<UserDocument>){}
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  create(createUser: CreateUserDto) {
+    return this.usersModel.create(createUser);
   }
 
   findAll() {
     return this.usersModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(id: string) {
+    return this.usersModel.findOne({_id:id});
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
