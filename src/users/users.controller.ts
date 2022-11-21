@@ -16,24 +16,24 @@ export class UsersController {
   }
 
   @Get()
-  async findAll() {
-    const users = await this.usersService.findAll();
-    return users;
+  async findAll(@Query('limit') limit) {
+    const users = await this.usersService.findAll(+limit);
+    return {status: 'success',users};
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
     let user = await this.usersService.findOne(id)
-    return user;
+    return {status: 'success',user};
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+    return this.usersService.update(id, updateUserDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+    return this.usersService.remove(id);
   }
 }

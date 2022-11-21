@@ -14,19 +14,19 @@ export class UsersService {
     return this.usersModel.create(createUser);
   }
 
-  findAll() {
-    return this.usersModel.find();
+  findAll(limit) {
+    return this.usersModel.find().limit(limit);
   }
 
   findOne(id: string) {
     return this.usersModel.findOne({_id:id});
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  update(id: string, updateUserDto: UpdateUserDto) {
+    return this.usersModel.updateOne({_id:id},{$set:updateUserDto});
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  remove(id: string) {
+    return this.usersModel.deleteOne({_id:id});
   }
 }

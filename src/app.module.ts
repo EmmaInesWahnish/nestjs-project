@@ -3,15 +3,19 @@ import { AppController } from './app.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [
-    MongooseModule.forRoot(
-      "mongodb+srv://admin:Jsthlj00N04@backend-project.zvlmt.mongodb.net/?retryWrites=true&w=majority"
-    ),
-    UsersModule,
-  ],
+  imports: [UsersModule,
+    ConfigModule.forRoot(),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      inject:[ConfigService],
+      useFactory: async(config:ConfigService) =>({
+        uri: config.get<string>('URL')
+      })
+    })],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
