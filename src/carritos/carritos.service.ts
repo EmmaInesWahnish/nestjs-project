@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateCarritoDto } from './dto/create-carrito.dto';
 import { UpdateCarritoDto } from './dto/update-carrito.dto';
+import { Carrito, CarritoDocument } from './schema/carritos.schema';
 
 @Injectable()
 export class CarritosService {
-  create(createCarritoDto: CreateCarritoDto) {
-    return 'This action adds a new carrito';
+
+  constructor(@InjectModel(Carrito.name) private carritosModel: Model<CarritoDocument>){}
+
+  create(createCarrito: CreateCarritoDto) {
+    return this.carritosModel.create(createCarrito);;
   }
 
   findAll() {
-    return `This action returns all carritos`;
+    return this.carritosModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} carrito`;
+  findOne(id: string) {
+    return this.carritosModel.findOne({_id:id});
   }
 
-  update(id: number, updateCarritoDto: UpdateCarritoDto) {
-    return `This action updates a #${id} carrito`;
+  update(id: string, updateCarritoDto: UpdateCarritoDto) {
+    return this.carritosModel.updateOne({_id:id},{$set: updateCarritoDto});
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} carrito`;
+  remove(id: string) {
+    return this.carritosModel.deleteOne({_id:id});
   }
 }

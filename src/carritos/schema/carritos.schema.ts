@@ -7,10 +7,13 @@ export type CarritoDocument = HydratedDocument<Carrito>;
 @Schema()
 export class Carrito {
 
+    @Prop({required: true})
     timestamp: Date;
 
+    @Prop()
     user_id: string;
 
+    @Prop()
     productos: [{
 
         id: string;
