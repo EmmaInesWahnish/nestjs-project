@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProductosModule } from './productos/productos.module';
 import { CarritosModule } from './carritos/carritos.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [UsersModule,
@@ -18,7 +19,8 @@ import { CarritosModule } from './carritos/carritos.module';
       })
     }),
     ProductosModule,
-    CarritosModule],
+    CarritosModule,
+    OrdersModule],
   controllers: [AppController],
   providers: [AppService],
 })
