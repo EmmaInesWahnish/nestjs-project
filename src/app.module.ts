@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ProductosModule } from './productos/productos.module';
 
 @Module({
   imports: [UsersModule,
@@ -14,7 +15,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       useFactory: async(config:ConfigService) =>({
         uri: config.get<string>('URL')
       })
-    })],
+    }),
+    ProductosModule],
   controllers: [AppController],
   providers: [AppService],
 })
