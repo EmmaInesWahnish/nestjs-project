@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProductosModule } from './productos/productos.module';
+import { CarritosModule } from './carritos/carritos.module';
 
 @Module({
   imports: [UsersModule,
@@ -16,7 +17,8 @@ import { ProductosModule } from './productos/productos.module';
         uri: config.get<string>('URL')
       })
     }),
-    ProductosModule],
+    ProductosModule,
+    CarritosModule],
   controllers: [AppController],
   providers: [AppService],
 })
