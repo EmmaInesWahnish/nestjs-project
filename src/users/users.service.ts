@@ -10,12 +10,21 @@ export class UsersService {
 
   constructor(@InjectModel(User.name) private usersModel: Model<UserDocument>){}
 
-  create(createUser: CreateUserDto) {
-    return this.usersModel.create(createUser);
+  async create(createUser: CreateUserDto) {
+    const result = await this.usersModel.create(createUser)
+    return {
+      message: 'Successful register',
+      userId: result.id,
+      userEmail: result.email
+    };
   }
 
   findAll(limit) {
     return this.usersModel.find().limit(limit);
+  }
+
+  checkOne(email: string) {
+    return this.usersModel.findOne({email: email});
   }
 
   findOne(id: string) {

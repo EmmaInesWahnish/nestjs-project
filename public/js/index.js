@@ -46,7 +46,7 @@ const homePage = document.getElementById('home');
 
 const order = document.getElementById('order')
 
-const socket = io();
+/*const socket = io();
 
 let messages = document.getElementById('messages');
 let form = document.getElementById('form');
@@ -114,7 +114,7 @@ function renderMessage(data) {
                         <img class="avatar" src="${data.author.avatar}"/>
                     <div>`;
     messages.appendChild(where);
-}
+}*/
 
 listProducts.addEventListener('click', () => {
     renderProducts();

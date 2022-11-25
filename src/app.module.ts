@@ -10,6 +10,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ProductosModule } from './productos/productos.module';
 import { CarritosModule } from './carritos/carritos.module';
 import { OrdersModule } from './orders/orders.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [UsersModule,
@@ -28,6 +29,7 @@ import { OrdersModule } from './orders/orders.module';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public')
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

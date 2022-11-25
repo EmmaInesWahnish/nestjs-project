@@ -2,17 +2,27 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpS
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import * as bcrypt from 'bcrypt'
 
-@Controller('api/users')
+@Controller('api/sessions')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  create(@Body() createUser: CreateUserDto) {
+
+  @Post('/register')
+  async create(@Body() createUser: CreateUserDto) {
+    const saltOrRounds = 10;
     if(!createUser.first_name||!createUser.email||!createUser.password||createUser.last_name){
       throw new HttpException('Incomplete values',HttpStatus.BAD_REQUEST)
     }
+    const hashedPassword = await bcrypt.hash(createUser.password, saltOrRounds);
+    createUser.password = hashedPassword;
     return this.usersService.create(createUser);
+  }
+
+  @Get(':email')
+  async checkOne(@Param('email') email: string) {
+    return await this.usersService.checkOne(email)
   }
 
   @Get()
