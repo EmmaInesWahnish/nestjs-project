@@ -12,7 +12,7 @@ export class UsersController {
   @Post('/register')
   async create(@Body() createUser: CreateUserDto) {
     const saltOrRounds = 10;
-    if(!createUser.first_name||!createUser.email||!createUser.password||createUser.last_name){
+    if(!createUser.first_name||!createUser.email||!createUser.password||!createUser.last_name){
       throw new HttpException('Incomplete values',HttpStatus.BAD_REQUEST)
     }
     const hashedPassword = await bcrypt.hash(createUser.password, saltOrRounds);
